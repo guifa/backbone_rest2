@@ -2,19 +2,122 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
-<script src="js/lib/jquery.js"></script>
-<script src="js/lib/underscore.js"></script>
-<script src="js/lib/backbone.js"></script>
-<script src="js/main.js"></script>
-<script src=""></script>
+
 </head>
 <body>
-<h1> Seja bem vindo ao sistema...</h1>
-	<div class="container" id="container">
-		<div class="main-content"></div>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand active" href="#">Cadastro de Pessoas</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active">
+						<a href="">Home</a>
+					</li>
+					<li>
+						<a href="#pessoas/cadastro">Cadastro</a>
+					</li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
+
+	<div class="container">
+		<div id="main-container" class="starter-template"></div>
 	</div>
+	
+	<script type="text/template" id="pessoa-table">
+		<div class="form-group">
+			<label>Id:</label>
+        	<input type="text" id="id" name="id" class="form-control" />
+		</div>
+		<div class="form-group">
+        	<label>Data de Nascimento:</label>
+        	<input type="text" id="data-nascimento" name="dataNascimento" class="form-control" required/>
+		</div>
+		<div class="form-group">
+        	<label>CPF:</label>
+        	<input type="text" id="cpf" name="cpf" class="form-control"/>
+		</div>
+		<div class="form-group">
+        	<label>Nome:</label>
+        	<input type="text" id="nome" name="nome" class="form-control"/>
+		</div>
+		<button id="search" class="btn btn-default">Pesquisar</button>
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nome</th>
+					<th>CPF</th>
+					<th>Data de Nascimento</th>
+				</tr>
+			</thead>
+			<tbody class="row-container">
+				
+			</tbody>
+		</table>
+	</script>
+
+	<script type="text/template" id="pessoa-table-row-tmpl">
+			<td><%= id %></td>	
+			<td><%= nome %></td>
+			<td><%= cpf %></td>
+			<td><%= dataNascimento %></td>
+			<td>
+				<button type="button" id="edit" class="btn btn-default">
+					<span class="glyphicon glyphicon-edit"></span>
+					Editar
+				</button>
+				<button type="button" id="delete" class="btn btn-default">
+					<span class="glyphicon glyphicon-remove"></span>
+					Deletar
+				</button>
+			</td>
+			<a href='#pessoas/<%= id %>'><%= nome %></a>
+	</script>
+
+	<script type="text/template" id="pessoa-tmpl">
+			<div class="form-group">
+				<label>Id:</label>
+        		<input type="text" id="id" name="id" class="form-control" value="<%= id %>" disabled />
+			</div>
+			<div class="form-group">
+        		<label>Data de Nascimento:</label>
+        		<input type="text" id="data-nascimento" name="dataNascimento" class="form-control" value="<%= dataNascimento %>" required/>
+			</div>
+			<div class="form-group">
+        		<label>CPF:</label>
+        		<input type="text" id="cpf" name="cpf" class="form-control" value="<%= cpf %>"/>
+			</div>
+			<div class="form-group">
+        		<label>Nome:</label>
+        		<input type="text" id="nome" name="nome" class="form-control" value="<%= nome %>"/>
+			</div>
+			<button id="save" class="btn btn-default">Salvar</button>
+			<button id="delete" class="btn btn-default">Deletar</button>
+		</script>		
+	<script src="js/lib/jquery.js"></script>
+	<script src="js/lib/underscore.js"></script>
+	<script src="js/lib/backbone.js"></script>
+	<script src="js/models/pessoa.js"></script>	
+	<script src="js/collections/pessoas.js"></script>
+	<script src="js/views/pessoa_table.js"></script>	
+	<script src="js/views/pessoa_row.js"></script>
+	<script src="js/views/pessoa_details.js"></script>	
+	<script src="js/main/main.js"></script>	
 </body>
 </html>

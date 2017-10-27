@@ -11,6 +11,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -32,13 +33,23 @@ public class PessoaResources {
 	public Response get() {
 		return Response.ok().entity(PESSOAS).build();
 	}
-
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/search")
+	public Response find(@QueryParam("id") String id, @QueryParam("dataNascimento") String dataNascimento, @QueryParam("cpf") String cpf, @QueryParam("nome") String nome) {
+//		System.out.println("PessoaResources.find()" + pessoa.getNome());
+		return Response.ok().entity(PESSOAS).build();
+	}
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response salva(Pessoa pessoa) {
 		pessoa.setId(++idPessoas);
-		return Response.ok().entity(PESSOAS.add(pessoa)).build();
+		PESSOAS.add(pessoa);
+		return Response.ok().entity(pessoa).build();
 	}
 
 	@GET
