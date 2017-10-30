@@ -26,7 +26,10 @@
 						<a href="">Home</a>
 					</li>
 					<li>
-						<a href="#pessoas/cadastro">Cadastro</a>
+						<a href="#app/pessoas/lista">Lista de Pessoas</a>
+					</li>
+					<li>
+						<a href="#app/pessoas/cadastro">Cadastro</a>
 					</li>
 				</ul>
 			</div>
@@ -39,10 +42,6 @@
 	</div>
 	
 	<script type="text/template" id="pessoa-table">
-		<div class="form-group">
-			<label>Id:</label>
-        	<input type="text" id="id" name="id" class="form-control" />
-		</div>
 		<div class="form-group">
         	<label>Data de Nascimento:</label>
         	<input type="text" id="data-nascimento" name="dataNascimento" class="form-control" required/>
@@ -66,7 +65,7 @@
 					<th>Data de Nascimento</th>
 				</tr>
 			</thead>
-			<tbody class="row-container">
+			<tbody id="row-container">
 				
 			</tbody>
 		</table>

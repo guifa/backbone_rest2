@@ -18,7 +18,7 @@ var PessoaTableRowView = Backbone.View.extend({
     },
     
     editPessoa : function() {
-    	window.location.href='#pessoas/' + this.model.get('id');
+    	window.location.hash = "app/pessoas/edicao/" + this.model.get('id');
 	},
 	
 	deletePessoa:function () {

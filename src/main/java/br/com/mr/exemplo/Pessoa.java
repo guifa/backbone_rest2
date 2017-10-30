@@ -2,6 +2,7 @@ package br.com.mr.exemplo;
 
 
 public class Pessoa {
+
 	private Integer id;
 	private String cpf;
 	private String nome;
@@ -11,10 +12,17 @@ public class Pessoa {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pessoa(Integer id, String cpf, String nome) {
+	public Pessoa(Integer id, String cpf, String nome, String dataNascimento) {
 		this.id = id;
 		this.cpf = cpf;
 		this.nome = nome;
+		this.dataNascimento = dataNascimento;
+	}
+	
+	public Pessoa(String cpf, String nome, String dataNascimento) {
+		this.cpf = cpf;
+		this.nome = nome;
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getCpf() {
@@ -47,6 +55,11 @@ public class Pessoa {
 
 	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+	
+	@Override
+	public String toString() {
+		return "Pessoa [id=" + id + ", cpf=" + cpf + ", nome=" + nome + ", dataNascimento=" + dataNascimento + "]";
 	}
 
 }

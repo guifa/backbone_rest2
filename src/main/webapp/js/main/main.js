@@ -1,9 +1,13 @@
 var AppRouter = Backbone.Router.extend({
 
 	routes : {
-		"" : "list",
-		"pessoas/cadastro" : "cadastro",
-		"pessoas/:id" : "pessoa"
+		
+		'app/pessoas/lista' : "list",
+		'app/pessoas/cadastro' : "cadastro",
+		'app/pessoas/edicao/:id' : 'pessoa'
+//		"pessoas/" : "list",
+//		"pessoas/cadastro" : "cadastro",
+//		"pessoas/:id" : "pessoa"
 	},
 
 	list : function() {
@@ -18,9 +22,6 @@ var AppRouter = Backbone.Router.extend({
 			},
 			error : function(col, res) {
 				console.error('Erro buscando pessoas...')
-			},
-			data : {
-				nome : 'Robson'
 			}
 		});
 	},

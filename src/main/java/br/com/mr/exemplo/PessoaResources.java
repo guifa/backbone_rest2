@@ -2,6 +2,9 @@ package br.com.mr.exemplo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -21,10 +24,10 @@ public class PessoaResources {
 	private static List<Pessoa> PESSOAS = new ArrayList<Pessoa>();//
 	private static Integer idPessoas = 4;
 	static {
-		PESSOAS.add(new Pessoa(1, "1234567896", "Robson"));
-		PESSOAS.add(new Pessoa(2, "2234567892", "Marcio"));
-		PESSOAS.add(new Pessoa(3, "3234567896", "Silva"));
-		PESSOAS.add(new Pessoa(4, "4234567896", "Penha"));
+		PESSOAS.add(new Pessoa(1, "1234567896", "Robson", ""));
+		PESSOAS.add(new Pessoa(2, "2234567892", "Marcio", ""));
+		PESSOAS.add(new Pessoa(3, "3234567896", "Silva", ""));
+		PESSOAS.add(new Pessoa(4, "4234567896", "Penha", ""));
 	}
 
 	@GET
@@ -38,9 +41,26 @@ public class PessoaResources {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/search")
-	public Response find(@QueryParam("id") String id, @QueryParam("dataNascimento") String dataNascimento, @QueryParam("cpf") String cpf, @QueryParam("nome") String nome) {
-//		System.out.println("PessoaResources.find()" + pessoa.getNome());
-		return Response.ok().entity(PESSOAS).build();
+	public Response find(@QueryParam("dataNascimento") String dataNascimento, @QueryParam("cpf") String cpf, @QueryParam("nome") String nome) {
+		System.out.println("PessoaResources.find()");
+		Stream<Pessoa> pessoasStream = PESSOAS.stream();
+		Pessoa pessoa = new Pessoa(cpf, nome, dataNascimento);
+		if(pessoa.getId() != null && pessoa.getId() >= 0) {
+			pessoasStream = pessoasStream.filter(p -> p.getId() == pessoa.getId());
+		}
+		if(pessoa.getDataNascimento() != null && !pessoa.getDataNascimento().equals("")) {
+			pessoasStream = pessoasStream.filter(p -> Objects.equals(p.getDataNascimento(), pessoa.getDataNascimento()));
+		}
+		if(pessoa.getCpf() != null && !pessoa.getCpf().equals("")) {
+			pessoasStream = pessoasStream.filter(p -> Objects.equals(p.getCpf(), pessoa.getCpf()));
+		}
+		if(pessoa.getNome() != null && !pessoa.getNome().equals("")) {
+			pessoasStream = pessoasStream.filter(p -> Objects.equals(p.getNome(), pessoa.getNome()));
+		}
+		List<Pessoa> result = pessoasStream.collect(Collectors.toList());
+		System.out.println("Size: " + result.size());
+		System.out.println(result.get(0).toString());
+		return Response.ok().entity(result).build();
 	}
 	
 	@POST

@@ -32,8 +32,15 @@ var PessoaView = Backbone.View.extend({
             cpf:$('#cpf').val(),
             nome:$('#nome').val()
         });
-        this.model.save();
-        window.history.back();
+        this.model.save(null, {
+        	success:  function() {
+        		window.location.hash = "app/pessoas/lista";
+        	},
+        	error: function() {
+				
+			}
+        });
+        
     },
 
     deletePessoa:function () {
