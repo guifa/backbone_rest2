@@ -31,16 +31,38 @@
 					<li>
 						<a href="#app/pessoas/cadastro">Cadastro</a>
 					</li>
+					<li>
+						<a href="#app/pessoas/teste">Teste</a>
+					</li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
 		</div>
 	</nav>
 
-	<div class="container">
+	<div id="container" class="container">
 		<div id="main-container" class="starter-template"></div>
 	</div>
-	
+    
+    <script type="text/template" id="todo-form">
+		<div id="todo" class="form-group row">
+  			<label for="id_todo" class="col-sm-2 col-form-label">Todo Text:</label>
+			<div class="col-sm-6">
+  				<input type="text" name="todo" id="id_todo" class="form-control" value="<%= todo %>"/>
+			</div>
+			<div id="invalid-todo" class="col-sm-4"></div>
+		</div>
+		<div id="assignee" class="form-group row">
+  			<label for="id_assignee" class="col-sm-2 col-form-label">Assign to:</label>
+			<div class="col-sm-6">
+  				<input type="text" name="assignee" id="id_assignee" class="form-control" value="<%= assignee %>"/>
+			</div>
+			<div id="invalid-assignee" class="col-sm-4"></div>
+		</div>
+  		<button type="button" id="btn-add" class="btn btn-default">Add Item</button>
+		<br>
+		<br>
+	</script>
 	<script type="text/template" id="pessoa-table">
 		<div class="form-group">
         	<label>Data de Nascimento:</label>
@@ -72,51 +94,69 @@
 	</script>
 
 	<script type="text/template" id="pessoa-table-row-tmpl">
-			<td><%= id %></td>	
-			<td><%= nome %></td>
-			<td><%= cpf %></td>
-			<td><%= dataNascimento %></td>
-			<td>
-				<button type="button" id="edit" class="btn btn-default">
-					<span class="glyphicon glyphicon-edit"></span>
-					Editar
-				</button>
-				<button type="button" id="delete" class="btn btn-default">
-					<span class="glyphicon glyphicon-remove"></span>
-					Deletar
-				</button>
-			</td>
-			<a href='#pessoas/<%= id %>'><%= nome %></a>
+		<td><%= id %></td>	
+		<td><%= nome %></td>
+		<td><%= cpf %></td>
+		<td><%= dataNascimento %></td>
+		<td>
+			<button type="button" id="edit" class="btn btn-default">
+				<span class="glyphicon glyphicon-edit"></span>
+				Editar
+			</button>
+			<button type="button" id="delete" class="btn btn-default">
+				<span class="glyphicon glyphicon-remove"></span>
+				Deletar
+			</button>
+		</td>
 	</script>
 
 	<script type="text/template" id="pessoa-tmpl">
-			<div class="form-group">
-				<label>Id:</label>
-        		<input type="text" id="id" name="id" class="form-control" value="<%= id %>" disabled />
-			</div>
-			<div class="form-group">
-        		<label>Data de Nascimento:</label>
-        		<input type="text" id="data-nascimento" name="dataNascimento" class="form-control" value="<%= dataNascimento %>" required/>
-			</div>
-			<div class="form-group">
-        		<label>CPF:</label>
-        		<input type="text" id="cpf" name="cpf" class="form-control" value="<%= cpf %>"/>
-			</div>
-			<div class="form-group">
-        		<label>Nome:</label>
-        		<input type="text" id="nome" name="nome" class="form-control" value="<%= nome %>"/>
-			</div>
-			<button id="save" class="btn btn-default">Salvar</button>
-			<button id="delete" class="btn btn-default">Deletar</button>
-		</script>		
-	<script src="js/lib/jquery.js"></script>
-	<script src="js/lib/underscore.js"></script>
-	<script src="js/lib/backbone.js"></script>
-	<script src="js/models/pessoa.js"></script>	
+		<div class="form-group">
+			<label>Id:</label>
+        	<input type="text" id="id" name="id" class="form-control" value="<%= id %>" disabled />
+		</div>
+		<div class="form-group">
+        	<label>Data de Nascimento:</label>
+        	<input type="text" id="data-nascimento" name="dataNascimento" class="form-control" value="<%= dataNascimento %>" required/>
+		</div>
+		<div class="form-group">
+        	<label>CPF:</label>
+        	<input type="text" id="cpf" name="cpf" class="form-control" value="<%= cpf %>"/>
+		</div>
+		<div class="form-group">
+        	<label>Nome:</label>
+        	<input type="text" id="nome" name="nome" class="form-control" value="<%= nome %>"/>
+		</div>
+		<button id="save" class="btn btn-default">Salvar</button>
+		<button id="delete" class="btn btn-default">Deletar</button>
+	</script>
+
+	<script type="text/template" id="todo-item">
+		<%- todo %> &mdash; <%- assignee %>		
+	</script>
+	
+	<script type="text/template" id="error-message">
+		<small class="text-danger"><%= message %></small>	
+	</script>
+	<script type="text/template" id="todo-layout">
+		<div id="form"></div>
+		<div id="list"></div>
+	</script>
+	<script src="js/lib/jquery/dist/jquery.js"></script>
+	<script src="js/lib/underscore/underscore.js"></script>
+	<script src="js/lib/backbone/backbone.js"></script>
+	<script src="js/lib/backbone.marionette/lib/backbone.marionette.js"></script>
+	<script src="js/models/pessoa.js"></script>
+	<script src="js/models/todo.js"></script>
 	<script src="js/collections/pessoas.js"></script>
-	<script src="js/views/pessoa_table.js"></script>	
 	<script src="js/views/pessoa_row.js"></script>
-	<script src="js/views/pessoa_details.js"></script>	
-	<script src="js/main/main.js"></script>	
+	<script src="js/views/pessoa_table.js"></script>
+	<script src="js/views/pessoa_details.js"></script>
+	<script src="js/views/error.js"></script>
+	<script src="js/views/todo_list.js"></script>
+	<script src="js/views/todo_form.js"></script>
+	<script src="js/views/todo_layout.js"></script>
+	<script src="js/views/driver.js"></script>
+	<script src="js/main/main.js"></script>
 </body>
 </html>

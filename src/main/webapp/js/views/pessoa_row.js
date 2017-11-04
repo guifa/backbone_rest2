@@ -1,4 +1,4 @@
-var PessoaTableRowView = Backbone.View.extend({
+var PessoaTableRowView = Marionette.View.extend({
 	tagName : 'tr',
 	template : _.template($('#pessoa-table-row-tmpl').html()),
 	

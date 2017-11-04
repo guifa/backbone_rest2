@@ -1,24 +1,29 @@
 var AppRouter = Backbone.Router.extend({
 
 	routes : {
-		
-		'app/pessoas/lista' : "list",
-		'app/pessoas/cadastro' : "cadastro",
-		'app/pessoas/edicao/:id' : 'pessoa'
-//		"pessoas/" : "list",
-//		"pessoas/cadastro" : "cadastro",
-//		"pessoas/:id" : "pessoa"
+		'app/pessoas/lista': "list",
+		'app/pessoas/cadastro': "cadastro",
+		'app/pessoas/teste': "teste",
+		'app/pessoas/edicao/:id': 'pessoa'
+	},
+	
+	initialize : function() {
+		this.App = new Marionette.Application();
+		this.App.addRegions({
+			mainRegion : '#main-container',
+			error: '#error'
+		});
 	},
 
 	list : function() {
 		var that = this;
-		this.pessoaTable = new PessoaCollection();
+		this.pessoaCollection = new PessoaCollection();
 		this.pessoaTableView = new PessoaTableView({
-			pessoas : this.pessoaTable
+			pessoas : this.pessoaCollection
 		});
-		this.pessoaTable.fetch({
+		this.pessoaCollection.fetch({
 			success : function(col, res) {
-				$('#main-container').html(that.pessoaTableView.render().el);
+				that.App.mainRegion.show(that.pessoaTableView);
 			},
 			error : function(col, res) {
 				console.error('Erro buscando pessoas...')
@@ -26,22 +31,43 @@ var AppRouter = Backbone.Router.extend({
 		});
 	},
 	
-	pessoa : function (id) {
-        if (this.pessoaTable) {
-            this.pessoa = this.pessoaTable.get(id);
-            if (this.pessoaView) this.pessoaView.close();
-            this.pessoaView = new PessoaView({model:this.pessoa});
-            $('#main-container').html(this.pessoaView.render().el);
-        } else {
-            this.requestedId = id;
-            this.list();
-        }
-    },
-	
+	pessoa : function(id) {
+		if (this.pessoaCollection) {
+			this.pessoa = this.pessoaCollection.get(id);
+			if (this.pessoaView)this.pessoaView.close();
+			this.pessoaView = new PessoaView({
+				model : this.pessoa
+			});
+			this.App.mainRegion.show(this.pessoaView);
+		} else {
+			this.requestedId = id;
+			alert('A pessoa com o ID:' + this.requestedId + 'não pode ser encontrada!');
+		}
+	},
+
 	cadastro : function() {
-		if(app.pessoaView) app.pessoaView.close();
-		app.pessoaView = new PessoaView({model: new Pessoa()});
-		$('#main-container').html(app.pessoaView.render().el);
+		if (app.pessoaView)
+			app.pessoaView.close();
+		app.pessoaView = new PessoaView({
+			model : new Pessoa()
+		});
+		this.App.mainRegion.show(app.pessoaView);
+	},
+
+	teste : function() {
+		var initialData = [ {
+			assignee : 'Scott',
+			todo : 'Write a book about Marionette'
+		}, {
+			assignee : 'Andrew',
+			todo : 'Do some coding'
+		} ];
+		var todoView = new Layout({
+			collection : new Backbone.Collection(initialData),
+			model : new ToDoModel()
+		});
+		this.App.mainRegion.show(todoView);
+//		this.App.error.show("TESTES");
 	}
 });
 

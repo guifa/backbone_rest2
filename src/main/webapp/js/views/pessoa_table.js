@@ -1,5 +1,6 @@
-var PessoaTableView = Backbone.View.extend({
-	template : _.template($('#pessoa-table').html()),
+var PessoaTableView =  Marionette.CompositeView.extend({
+	template: _.template($('#pessoa-table').html()),
+	childView: PessoaTableRowView,
 
 	initialize : function(options) {
 		this.pessoas = options.pessoas;
@@ -10,7 +11,7 @@ var PessoaTableView = Backbone.View.extend({
 		$(this.el).html(this.template());
 		var self = this;
 		this.pessoas.each(function(pessoa) {
-			self.$el.find("#row-container").append(new PessoaTableRowView({
+			self.$("#row-container").append(new PessoaTableRowView({
 				model : pessoa
 			}).render().$el);
 		}, this);
@@ -31,10 +32,10 @@ var PessoaTableView = Backbone.View.extend({
     	var self = this;
     	this.pessoas.search({
     		success: function() {
-//    			self.render();
+    			
     		},
 			error: function() {
-				alert();
+				alert("Aconteceu algum erro!");
 			},
 			data: {
 				id: $('#id').val(),
