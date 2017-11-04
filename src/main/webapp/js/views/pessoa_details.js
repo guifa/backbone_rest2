@@ -1,5 +1,5 @@
 var PessoaView = Backbone.View.extend({
-	template:_.template($('#pessoa-tmpl').html()),
+	template: _.template($('#pessoa-tmpl').html()),
 	
 	initialize:function () {
         this.model.bind("change", this.render, this);
