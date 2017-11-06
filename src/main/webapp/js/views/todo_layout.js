@@ -8,17 +8,10 @@ var Layout = Marionette.LayoutView.extend({
 		todoInvalid : '#invalid-todo'
 	},
 
-	modelEvents : {
-//		'invalid' : 'onValidationFailed'
-	},
-
 	onShow : function() {
 		var formView = new FormView({
 			model : this.model,
-			collection : this.collection,
-			onAdd: function(newModel) {
-				console.log(newModel);
-			}
+			collection : this.collection
 		});
 		var listView = new ListView({
 			collection : this.collection
@@ -26,28 +19,5 @@ var Layout = Marionette.LayoutView.extend({
 
 		this.showChildView('list', listView);
 		this.showChildView('form', formView);
-	},
-
-//	onValidationFailed : function() {
-//		console.log('onValidationFailed');
-//		console.log(this.model.validationError);
-//		var errors = this.model.validationError;
-//		if (errors.todo) {
-////			console.log(errors.todo.message);
-//			this.showChildView("todoInvalid", new ErrorView({
-//				model : new Backbone.Model({
-//					message : errors.todo.message,
-//				})
-//			}));
-//		}
-//		if (errors.assignee) {
-//			this.showChildView("assigneeInvalid", new ErrorView({
-//				model : new Backbone.Model({
-//					message : errors.assignee.message,
-//				})
-//			}));
-//		}
-//	},
-
-
+	}
 });

@@ -24,10 +24,10 @@ public class PessoaResources {
 	private static List<Pessoa> PESSOAS = new ArrayList<Pessoa>();//
 	private static Integer idPessoas = 4;
 	static {
-		PESSOAS.add(new Pessoa(1, "1234567896", "Robson", ""));
-		PESSOAS.add(new Pessoa(2, "2234567892", "Marcio", ""));
-		PESSOAS.add(new Pessoa(3, "3234567896", "Silva", ""));
-		PESSOAS.add(new Pessoa(4, "4234567896", "Penha", ""));
+		PESSOAS.add(new Pessoa(1, "1234567896", "Robson", "20/03/1970"));
+		PESSOAS.add(new Pessoa(2, "2234567892", "Marcio", "29/10/1975"));
+		PESSOAS.add(new Pessoa(3, "3234567896", "Silva", "23/07/1971"));
+		PESSOAS.add(new Pessoa(4, "4234567896", "Penha", "10/08/1972"));
 	}
 
 	@GET

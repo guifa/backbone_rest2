@@ -2,16 +2,9 @@ var FormView = Marionette.LayoutView.extend({
 	tagName: 'form',
 	template: _.template($('#todo-form').html()),
 	
-	initialize: function() {
-		
-	},
-	
 	ui: {  
 		assignee: '#id_assignee',
 	    todo: '#id_todo'
-	},
-	triggers: {
-	    submit: 'add:todo:item'
 	},
 	
 	events: {
@@ -31,8 +24,8 @@ var FormView = Marionette.LayoutView.extend({
 		this.model.set({
 			assignee : this.ui.assignee.val(),
 			todo : this.ui.todo.val()
-		});
-		if (this.model.isValid()) {
+		});//you could trigger validation passing {validate: true}
+		if (this.model.isValid()) {//in this case i'm manually triggering the validation using .isValid()
 			this.collection.add(this.model.toJSON());//this could have been done in different ways like this.model.pick('assignee', 'todo') or this.model.omit()
 		}
 	},
